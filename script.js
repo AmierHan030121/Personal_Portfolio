@@ -43,9 +43,11 @@ function setupReveal() {
 }
 
 function buildPreviewNode(type, src) {
+  const safeSrc = encodeURI(src);
+
   if (type === "pdf") {
     const frame = document.createElement("iframe");
-    frame.src = src;
+    frame.src = safeSrc;
     frame.title = "PDF 预览";
     frame.loading = "lazy";
     return frame;
@@ -61,7 +63,7 @@ function buildPreviewNode(type, src) {
 
     sources.forEach((item, index) => {
       const img = document.createElement("img");
-      img.src = item;
+      img.src = encodeURI(item);
       img.alt = `项目预览图 ${index + 1}`;
       img.loading = "eager";
       gallery.append(img);
@@ -71,10 +73,18 @@ function buildPreviewNode(type, src) {
   }
 
   const img = document.createElement("img");
-  img.src = src;
+  img.src = safeSrc;
   img.alt = "项目预览图";
   img.loading = "lazy";
   return img;
+}
+
+function shouldOpenPdfExternally() {
+  const ua = navigator.userAgent || "";
+  const isMobileUA = /Android|iPhone|iPad|iPod|Mobile|HarmonyOS|MiuiBrowser|HuaweiBrowser/i.test(ua);
+  const hasCoarsePointer = window.matchMedia?.("(pointer: coarse)")?.matches ?? false;
+  const isNarrowScreen = window.matchMedia?.("(max-width: 900px)")?.matches ?? false;
+  return isMobileUA || (hasCoarsePointer && isNarrowScreen);
 }
 
 function setupMediaModal() {
@@ -90,6 +100,13 @@ function setupMediaModal() {
       const src = button.getAttribute("data-preview-src");
       const type = button.getAttribute("data-preview-type") || "image";
       if (!src) return;
+
+      if (type === "pdf" && shouldOpenPdfExternally()) {
+        const safeSrc = encodeURI(src);
+        window.location.href = safeSrc;
+        return;
+      }
+
       modalContent.innerHTML = "";
       modalContent.append(buildPreviewNode(type, src));
       if (typeof modal.showModal === "function") {
