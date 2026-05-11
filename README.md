@@ -1,3 +1,5 @@
+![Home 页面快照](assets/readme/home-page-snapshot.png)
+
 # AmierHan 数据分析作品集网站
 
 一个用于展示个人数据分析能力的静态作品集网站，面向 HR / 面试官快速浏览。
@@ -25,7 +27,9 @@
 ├─ script.js
 ├─ 作品/                      # 原始看板图片与论文 PDF
 ├─ assets/
-│  └─ previews/              # 从 PDF 首页面生成的预览图
+│  ├─ previews/              # 从 PDF 首页面生成的预览图
+│  └─ readme/
+│     └─ home-page-snapshot.png   # Home 页快照
 └─ AmierHan-portfolio-site.zip
 ```
 
