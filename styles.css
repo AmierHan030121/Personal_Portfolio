@@ -500,13 +500,34 @@ main {
   min-height: 500px;
 }
 
-.modal-content img,
-.modal-content iframe {
+.modal-content > img,
+.modal-content > iframe {
   width: 100%;
   height: min(78dvh, 860px);
   object-fit: contain;
   border: 0;
   background: #ffffff;
+}
+
+.modal-gallery {
+  width: 100%;
+  height: min(78dvh, 860px);
+  overflow: auto;
+  background: #ffffff;
+  padding: 10px;
+}
+
+.modal-gallery img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.modal-gallery img + img {
+  margin-top: 10px;
 }
 
 .reveal {

@@ -51,6 +51,25 @@ function buildPreviewNode(type, src) {
     return frame;
   }
 
+  if (type === "gallery") {
+    const gallery = document.createElement("div");
+    gallery.className = "modal-gallery";
+    const sources = src
+      .split("|")
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    sources.forEach((item, index) => {
+      const img = document.createElement("img");
+      img.src = item;
+      img.alt = `项目预览图 ${index + 1}`;
+      img.loading = "eager";
+      gallery.append(img);
+    });
+
+    return gallery;
+  }
+
   const img = document.createElement("img");
   img.src = src;
   img.alt = "项目预览图";
