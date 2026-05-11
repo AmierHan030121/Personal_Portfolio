@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research Papers | AmierHan Portfolio</title>
+  <meta name="description" content="AmierHan 的数据分析研究论文">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="https://unpkg.com/lucide@latest"></script>
+  <script defer src="script.js"></script>
+</head>
+<body data-page="papers">
+  <div class="ambient-layer" aria-hidden="true">
+    <div class="ambient-blob ambient-blob-1"></div>
+    <div class="ambient-blob ambient-blob-2"></div>
+    <div class="ambient-noise"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="brand" href="index.html" aria-label="主页">
+        <span class="brand-mark">AH</span>
+      </a>
+      <nav class="top-nav" aria-label="主导航">
+        <a href="index.html" data-nav="home">Home</a>
+        <a href="dashboards.html" data-nav="dashboards">Dashboards</a>
+        <a href="papers.html" data-nav="papers">Research</a>
+        <a href="about.html" data-nav="about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="page-head reveal">
+      <p class="hero-kicker">RESEARCH & MODELING</p>
+      <h1>Academic Projects</h1>
+      <p>围绕定价建模、区域创新与知识产权转化等主题开展分析研究与论文写作。</p>
+    </section>
+
+    <section class="project-grid">
+      <article class="project-card">
+        <figure class="project-cover paper-cover">
+          <img src="assets/previews/二手帆船市场定价模型研究.png" alt="二手帆船市场定价模型研究论文首页">
+        </figure>
+        <div class="project-body">
+          <h2>二手帆船市场定价模型研究</h2>
+          <p>使用结构化特征与建模方法识别价格驱动因素，为二手帆船交易定价提供量化支持。</p>
+          <ul class="tags">
+            <li>回归建模</li>
+            <li>特征工程</li>
+            <li>价格预测</li>
+          </ul>
+          <div class="project-actions">
+            <button class="btn btn-ghost" type="button" data-preview-type="pdf" data-preview-src="作品/二手帆船市场定价模型研究.pdf">
+              <i data-lucide="file-search"></i> 在线查看
+            </button>
+            <a class="btn btn-text" href="作品/二手帆船市场定价模型研究.pdf" target="_blank" rel="noopener">
+              <i data-lucide="download"></i> 下载 PDF
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <figure class="project-cover paper-cover">
+          <img src="assets/previews/省域研发投入与高质量知识产权转化差异识别及预测（Codex Agent 协同）.png" alt="省域研发投入与高质量知识产权转化差异识别及预测论文首页">
+        </figure>
+        <div class="project-body">
+          <h2>省域研发投入与高质量知识产权转化差异识别及预测（Codex Agent 协同）</h2>
+          <p>分析省域层面的研发投入与高质量知识产权转化差异，构建预测逻辑并给出协同优化建议。</p>
+          <ul class="tags">
+            <li>区域分析</li>
+            <li>预测建模</li>
+            <li>政策研究</li>
+          </ul>
+          <div class="project-actions">
+            <button class="btn btn-ghost" type="button" data-preview-type="pdf" data-preview-src="作品/省域研发投入与高质量知识产权转化差异识别及预测（Codex Agent 协同）.pdf">
+              <i data-lucide="file-search"></i> 在线查看
+            </button>
+            <a class="btn btn-text" href="作品/省域研发投入与高质量知识产权转化差异识别及预测（Codex Agent 协同）.pdf" target="_blank" rel="noopener">
+              <i data-lucide="download"></i> 下载 PDF
+            </a>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <p>© <span id="year"></span> AmierHan. Portfolio for Research Storytelling.</p>
+  </footer>
+
+  <dialog class="media-modal" id="mediaModal" aria-label="论文预览">
+    <button class="modal-close" type="button" data-close-modal aria-label="关闭预览">
+      <i data-lucide="x"></i>
+    </button>
+    <div class="modal-content" id="modalContent"></div>
+  </dialog>
+</body>
+</html>
