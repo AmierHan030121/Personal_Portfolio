@@ -451,15 +451,42 @@ main {
 }
 
 .site-footer {
-  padding-bottom: 34px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  padding-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 .site-footer p {
   margin: 0;
-  border-top: 1px solid var(--line);
   color: #60697a;
   font-size: 13px;
-  padding-top: 14px;
+}
+
+.icp-link {
+  margin-top: 4px;
+  margin-left: auto;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 0;
+  background: #153f8f;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icp-link:hover,
+.icp-link:focus-visible {
+  color: #ffffff;
+  text-decoration: underline;
+  outline: none;
 }
 
 .media-modal {
