@@ -42,6 +42,50 @@ function setupReveal() {
   revealNodes.forEach((node) => observer.observe(node));
 }
 
+function setupPageTurnTransitions() {
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+  if (reduceMotion) return;
+
+  function finishEnter() {
+    document.body.classList.remove("page-enter");
+  }
+
+  document.body.classList.add("page-enter");
+  window.setTimeout(finishEnter, 760);
+
+  window.addEventListener("pageshow", () => {
+    document.body.classList.remove("page-leaving");
+    document.body.classList.add("page-enter");
+    window.setTimeout(finishEnter, 760);
+  });
+
+  function canTransition(anchor) {
+    if (!anchor || anchor.target === "_blank" || anchor.hasAttribute("download")) return false;
+    if (anchor.closest(".media-modal")) return false;
+
+    const url = new URL(anchor.href, window.location.href);
+    if (url.origin !== window.location.origin) return false;
+    if (url.pathname === window.location.pathname && url.hash === window.location.hash) return false;
+
+    return url.pathname.endsWith(".html") || url.pathname.endsWith("/");
+  }
+
+  document.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+    const anchor = event.target.closest("a[href]");
+    if (!canTransition(anchor)) return;
+
+    event.preventDefault();
+    document.body.classList.remove("page-enter");
+    document.body.classList.add("page-leaving");
+
+    window.setTimeout(() => {
+      window.location.href = anchor.href;
+    }, 430);
+  });
+}
+
 function buildPreviewNode(type, src) {
   const safeSrc = encodeURI(src);
 
@@ -151,6 +195,7 @@ function setupIcons() {
 
 setActiveNav();
 setupYear();
+setupPageTurnTransitions();
 setupReveal();
 setupMediaModal();
 setupIcons();
