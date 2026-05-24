@@ -104,6 +104,11 @@ function setupEyeFollowingCards() {
   if (!cards.length) return;
 
   const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+  const isCoarsePointer = window.matchMedia?.("(pointer: coarse)")?.matches ?? false;
+  const isNarrowScreen = window.matchMedia?.("(max-width: 900px)")?.matches ?? false;
+  const isMobileUA = /Android|iPhone|iPad|iPod|Mobile|HarmonyOS|MiuiBrowser|HuaweiBrowser/i.test(navigator.userAgent || "");
+  const shouldUseDeviceMotion = (isCoarsePointer && isNarrowScreen) || isMobileUA;
+  const supportsDeviceOrientation = "DeviceOrientationEvent" in window;
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
   cards.forEach((card) => {
@@ -115,25 +120,104 @@ function setupEyeFollowingCards() {
 
     let frame = 0;
     let latestEvent = null;
+    let baseBeta = null;
+    let baseGamma = null;
+    let currentX = 0;
+    let currentY = 0;
+    let orientationActive = false;
+
+    function setLook(lookX, lookY, smoothing = 1) {
+      const nextX = clamp(lookX, -1, 1);
+      const nextY = clamp(lookY, -1, 1);
+
+      currentX += (nextX - currentX) * smoothing;
+      currentY += (nextY - currentY) * smoothing;
+
+      card.style.setProperty("--look-x", currentX.toFixed(3));
+      card.style.setProperty("--look-y", currentY.toFixed(3));
+      card.style.setProperty("--tilt-x", (currentX * 0.8).toFixed(3));
+      card.style.setProperty("--tilt-y", (currentY * 0.8).toFixed(3));
+    }
 
     function applyLook(event) {
       const rect = card.getBoundingClientRect();
       const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
       const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-      const lookX = clamp(x, -1, 1);
-      const lookY = clamp(y, -1, 1);
-
-      card.style.setProperty("--look-x", lookX.toFixed(3));
-      card.style.setProperty("--look-y", lookY.toFixed(3));
-      card.style.setProperty("--tilt-x", (lookX * 0.8).toFixed(3));
-      card.style.setProperty("--tilt-y", (lookY * 0.8).toFixed(3));
+      setLook(x, y);
     }
 
     function resetLook() {
-      card.style.setProperty("--look-x", "0");
-      card.style.setProperty("--look-y", "0");
-      card.style.setProperty("--tilt-x", "0");
-      card.style.setProperty("--tilt-y", "0");
+      currentX = 0;
+      currentY = 0;
+      setLook(0, 0);
+    }
+
+    function applyOrientation(event) {
+      if (!Number.isFinite(event.beta) || !Number.isFinite(event.gamma)) return;
+
+      if (baseBeta === null || baseGamma === null) {
+        baseBeta = event.beta;
+        baseGamma = event.gamma;
+      }
+
+      const lookX = clamp((event.gamma - baseGamma) / 26, -1, 1);
+      const lookY = clamp((event.beta - baseBeta) / 24, -1, 1);
+      setLook(lookX, lookY, 0.2);
+    }
+
+    function startOrientationTracking() {
+      if (!supportsDeviceOrientation || orientationActive) return;
+
+      baseBeta = null;
+      baseGamma = null;
+      orientationActive = true;
+      card.classList.add("motion-active");
+      window.addEventListener("deviceorientation", applyOrientation, { passive: true });
+    }
+
+    function requestOrientationTracking() {
+      if (orientationActive) {
+        baseBeta = null;
+        baseGamma = null;
+        resetLook();
+        return;
+      }
+
+      const permissionRequester = window.DeviceOrientationEvent?.requestPermission;
+
+      if (typeof permissionRequester === "function") {
+        permissionRequester
+          .call(window.DeviceOrientationEvent)
+          .then((state) => {
+            if (state === "granted") startOrientationTracking();
+          })
+          .catch(() => {
+            card.classList.remove("motion-active");
+          });
+        return;
+      }
+
+      startOrientationTracking();
+    }
+
+    if (shouldUseDeviceMotion && supportsDeviceOrientation) {
+      const toggle = card.querySelector("[data-motion-toggle]");
+      if (toggle) {
+        toggle.hidden = false;
+        toggle.addEventListener("click", requestOrientationTracking);
+      }
+
+      if (typeof window.DeviceOrientationEvent?.requestPermission !== "function") {
+        startOrientationTracking();
+      }
+
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && orientationActive) {
+          baseBeta = null;
+          baseGamma = null;
+        }
+      });
+      return;
     }
 
     card.addEventListener("pointermove", (event) => {

@@ -443,6 +443,44 @@ main {
   text-transform: uppercase;
 }
 
+.watch-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.motion-toggle {
+  display: none;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(214, 255, 95, 0.22);
+  border-radius: 50%;
+  background: rgba(214, 255, 95, 0.08);
+  color: var(--accent);
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.motion-toggle[hidden] {
+  display: none !important;
+}
+
+.motion-toggle i {
+  width: 15px;
+  height: 15px;
+}
+
+.motion-toggle:hover,
+.motion-toggle:focus-visible,
+.hero-watch-card.motion-active .motion-toggle {
+  border-color: rgba(214, 255, 95, 0.62);
+  background: var(--accent);
+  color: #091006;
+  box-shadow: 0 0 22px rgba(214, 255, 95, 0.18);
+  outline: none;
+}
+
 .watch-status {
   min-height: 30px;
   padding: 0 11px;
@@ -1103,6 +1141,10 @@ main {
   .hero-watch-card {
     justify-self: stretch;
     width: 100%;
+  }
+
+  .motion-toggle {
+    display: grid;
   }
 
   .project-card {
