@@ -228,10 +228,17 @@ main {
 .hero {
   min-height: calc(68dvh - 74px);
   display: grid;
-  align-content: center;
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 410px);
+  align-items: center;
+  column-gap: clamp(30px, 7vw, 92px);
   position: relative;
   padding-block: 36px 96px;
+}
+
+.hero-copy {
+  display: grid;
+  align-content: center;
+  gap: 20px;
 }
 
 .hero-kicker {
@@ -274,6 +281,245 @@ main {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #525865;
+}
+
+.hero-watch-card {
+  --look-x: 0;
+  --look-y: 0;
+  --tilt-x: 0;
+  --tilt-y: 0;
+  position: relative;
+  isolation: isolate;
+  justify-self: end;
+  width: min(100%, 410px);
+  min-height: 470px;
+  padding: 18px;
+  border: 1px solid rgba(16, 18, 22, 0.14);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(142deg, rgba(255, 255, 255, 0.88), rgba(255, 250, 245, 0.58)),
+    radial-gradient(circle at 18% 14%, rgba(134, 196, 192, 0.44), transparent 34%),
+    radial-gradient(circle at 92% 6%, rgba(237, 114, 79, 0.34), transparent 30%),
+    #f6f4ef;
+  box-shadow: 0 28px 80px rgba(31, 42, 68, 0.14);
+  overflow: hidden;
+  transform: perspective(960px)
+    rotateX(calc(var(--tilt-y) * -3.2deg))
+    rotateY(calc(var(--tilt-x) * 4.2deg))
+    translateY(calc(var(--tilt-y) * -2px));
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+
+.hero-watch-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(16, 18, 22, 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(16, 18, 22, 0.04) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92), transparent 82%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92), transparent 82%);
+}
+
+.hero-watch-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.46) 42%, transparent 58%);
+  opacity: 0;
+  transform: translateX(calc(var(--look-x) * 18px));
+  transition: opacity 240ms ease;
+}
+
+.hero-watch-card:hover,
+.hero-watch-card:focus-within {
+  border-color: rgba(21, 63, 143, 0.2);
+  box-shadow: 0 34px 88px rgba(31, 42, 68, 0.18);
+}
+
+.hero-watch-card:hover::after,
+.hero-watch-card:focus-within::after {
+  opacity: 1;
+}
+
+.watch-card-head,
+.watch-metrics {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #454c58;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.watch-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid rgba(16, 18, 22, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #1f2a44;
+}
+
+.watch-status span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2fbf71;
+  box-shadow: 0 0 0 5px rgba(47, 191, 113, 0.16);
+}
+
+.watch-face {
+  position: relative;
+  z-index: 3;
+  width: min(270px, 74%);
+  aspect-ratio: 1 / 1;
+  margin: 46px auto 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(16, 18, 22, 0.13);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 48% 36%, rgba(255, 255, 255, 0.95), rgba(235, 238, 231, 0.9) 54%, rgba(222, 226, 219, 0.78)),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.72), rgba(21, 63, 143, 0.08));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.88),
+    inset 0 -22px 42px rgba(21, 63, 143, 0.08),
+    0 22px 46px rgba(31, 42, 68, 0.12);
+}
+
+.watch-face::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px dashed rgba(16, 18, 22, 0.12);
+  border-radius: 50%;
+}
+
+.watch-face::after {
+  content: "";
+  position: absolute;
+  width: 42%;
+  height: 1px;
+  bottom: 31%;
+  background: linear-gradient(90deg, transparent, rgba(16, 18, 22, 0.22), transparent);
+}
+
+.eye-row {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  display: flex;
+  gap: clamp(16px, 4vw, 24px);
+  transform: translateX(-50%);
+}
+
+.eye {
+  width: clamp(50px, 6vw, 62px);
+  height: clamp(50px, 6vw, 62px);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 1), rgba(251, 250, 246, 0.96) 43%, rgba(220, 226, 232, 0.86));
+  border: 1px solid rgba(16, 18, 22, 0.14);
+  box-shadow:
+    inset 0 -10px 16px rgba(31, 42, 68, 0.08),
+    0 10px 22px rgba(31, 42, 68, 0.11);
+}
+
+.pupil {
+  width: 38%;
+  height: 38%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 30%, rgba(255, 255, 255, 0.72), transparent 18%),
+    #15181d;
+  transform: translate(calc(var(--look-x) * 11px), calc(var(--look-y) * 9px));
+  transition: transform 80ms linear;
+}
+
+.watch-mark {
+  position: absolute;
+  bottom: 17%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Didot", "Times New Roman", "STSong", serif;
+  font-size: clamp(38px, 6vw, 58px);
+  line-height: 1;
+  color: rgba(16, 18, 22, 0.82);
+}
+
+.watch-panel {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid rgba(16, 18, 22, 0.1);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(10px);
+}
+
+.signal-line {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(21, 63, 143, 0.16), rgba(21, 63, 143, 0.72));
+  transform-origin: left;
+  transform: scaleX(calc(0.72 + (var(--look-x) * 0.08)));
+  transition: transform 120ms ease;
+}
+
+.signal-line-1 {
+  width: 82%;
+}
+
+.signal-line-2 {
+  width: 61%;
+  background: linear-gradient(90deg, rgba(237, 114, 79, 0.14), rgba(237, 114, 79, 0.68));
+}
+
+.signal-line-3 {
+  width: 93%;
+  background: linear-gradient(90deg, rgba(38, 141, 137, 0.14), rgba(38, 141, 137, 0.66));
+}
+
+.signal-line-4 {
+  width: 48%;
+}
+
+.watch-metrics {
+  margin-top: 16px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.watch-metrics span {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  color: #667080;
+  font-size: 12px;
+}
+
+.watch-metrics strong {
+  color: #15181d;
+  font-size: 17px;
+  line-height: 1;
 }
 
 .section {
@@ -706,6 +952,15 @@ main {
   body::before {
     display: none;
   }
+
+  .hero-watch-card {
+    transform: none;
+  }
+
+  .pupil,
+  .signal-line {
+    transform: none;
+  }
 }
 
 @media (max-width: 960px) {
@@ -748,8 +1003,26 @@ main {
   }
 
   .hero {
+    grid-template-columns: 1fr;
+    gap: 28px;
     min-height: calc(62dvh - 74px);
     padding-bottom: 64px;
+  }
+
+  .hero-watch-card {
+    justify-self: stretch;
+    min-height: 360px;
+    padding: 14px;
+  }
+
+  .watch-face {
+    width: min(245px, 78%);
+    margin-block: 30px 22px;
+  }
+
+  .watch-metrics {
+    gap: 8px;
+    flex-wrap: wrap;
   }
 
   .hero-signature {

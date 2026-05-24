@@ -24,12 +24,16 @@ function setupReveal() {
   const revealNodes = document.querySelectorAll(".reveal");
   if (!revealNodes.length) return;
 
+  function revealNode(node) {
+    node.classList.add("is-visible");
+    observer.unobserve(node);
+  }
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+          revealNode(entry.target);
         }
       });
     },
@@ -40,6 +44,15 @@ function setupReveal() {
   );
 
   revealNodes.forEach((node) => observer.observe(node));
+
+  window.setTimeout(() => {
+    revealNodes.forEach((node) => {
+      if (!node.classList.contains("is-visible")) {
+        revealNode(node);
+      }
+    });
+    observer.disconnect();
+  }, 1200);
 }
 
 function setupPageTurnTransitions() {
@@ -83,6 +96,58 @@ function setupPageTurnTransitions() {
     window.setTimeout(() => {
       window.location.href = anchor.href;
     }, 430);
+  });
+}
+
+function setupEyeFollowingCards() {
+  const cards = document.querySelectorAll("[data-eye-card]");
+  if (!cards.length) return;
+
+  const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+  cards.forEach((card) => {
+    if (reduceMotion) {
+      card.style.setProperty("--look-x", "0");
+      card.style.setProperty("--look-y", "0");
+      return;
+    }
+
+    let frame = 0;
+    let latestEvent = null;
+
+    function applyLook(event) {
+      const rect = card.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+      const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+      const lookX = clamp(x, -1, 1);
+      const lookY = clamp(y, -1, 1);
+
+      card.style.setProperty("--look-x", lookX.toFixed(3));
+      card.style.setProperty("--look-y", lookY.toFixed(3));
+      card.style.setProperty("--tilt-x", (lookX * 0.8).toFixed(3));
+      card.style.setProperty("--tilt-y", (lookY * 0.8).toFixed(3));
+    }
+
+    function resetLook() {
+      card.style.setProperty("--look-x", "0");
+      card.style.setProperty("--look-y", "0");
+      card.style.setProperty("--tilt-x", "0");
+      card.style.setProperty("--tilt-y", "0");
+    }
+
+    card.addEventListener("pointermove", (event) => {
+      latestEvent = event;
+      if (frame) return;
+
+      frame = window.requestAnimationFrame(() => {
+        if (latestEvent) applyLook(latestEvent);
+        frame = 0;
+      });
+    });
+
+    card.addEventListener("pointerleave", resetLook);
+    card.addEventListener("blur", resetLook, true);
   });
 }
 
@@ -196,6 +261,7 @@ function setupIcons() {
 setActiveNav();
 setupYear();
 setupPageTurnTransitions();
+setupEyeFollowingCards();
 setupReveal();
 setupMediaModal();
 setupIcons();
