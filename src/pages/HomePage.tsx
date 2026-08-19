@@ -1,7 +1,6 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AnalysisRoute } from "../components/AnalysisRoute";
-import { CreativeLab } from "../components/CreativeLab";
 import { MediaFrame } from "../components/MediaFrame";
 import { ProjectIndex } from "../components/ProjectIndex";
 import { featuredProjects, orderedProjects } from "../content/projects";
@@ -86,7 +85,6 @@ export function HomePage() {
         </div>
       </section>
 
-      <CreativeLab />
     </div>
   );
 }
