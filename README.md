@@ -51,4 +51,5 @@ npm run preview
 
 1. 在 `src/content/projects.ts` 增加项目元数据、slug、能力标签与媒体资源。
 2. 将项目原图/PDF 放入 `作品/`，将 PDF 首页预览图放入 `assets/previews/`，再通过 Vite import 使用。
-3. 运行 `npm run typecheck && npm run test && npm run build` 完成提交前检查。
+3. `Vibe Coding 能把简历玩出什么花样？？.mp4` 会在首页 Creative Lab 中按需加载，只有点击播放后才请求视频。
+4. 运行 `npm run typecheck && npm run test && npm run build` 完成提交前检查。

@@ -1,6 +1,7 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AnalysisRoute } from "../components/AnalysisRoute";
+import { CreativeLab } from "../components/CreativeLab";
 import { MediaFrame } from "../components/MediaFrame";
 import { ProjectIndex } from "../components/ProjectIndex";
 import { featuredProjects, orderedProjects } from "../content/projects";
@@ -62,19 +63,30 @@ export function HomePage() {
         <ProjectIndex projects={orderedProjects} />
       </section>
 
-      <section className="home-next" aria-labelledby="home-next-title">
-        <div>
-          <span className="utility-label">Continue exploring</span>
-          <h2 id="home-next-title">从看板到研究，查看完整分析过程。</h2>
-          <Link className="row-link" to="/research">打开研究项目 <ArrowRight aria-hidden="true" /></Link>
+      <section className="evidence-showcase" aria-labelledby="evidence-title">
+        <header className="evidence-showcase__head">
+          <div>
+            <span className="utility-label">Evidence library / 06 projects</span>
+            <h2 id="evidence-title">每一项结论，都能回到真实文件。</h2>
+          </div>
+          <Link className="row-link" to="/dashboards">进入完整项目库 <ArrowRight aria-hidden="true" /></Link>
+        </header>
+        <div className="evidence-grid">
+          {orderedProjects.slice(1, 5).map((project, index) => (
+            <Link className={`evidence-item evidence-item--${index + 1}`} to={`/project/${project.slug}`} key={project.slug}>
+              <MediaFrame media={project.media[0]} />
+              <span className="evidence-item__meta">
+                <i>{String(project.order).padStart(2, "0")}</i>
+                <b>{project.shortTitle}</b>
+                <small>{project.kind === "dashboard" ? "Dashboard" : "Research"}</small>
+                <ArrowUpRight aria-hidden="true" />
+              </span>
+            </Link>
+          ))}
         </div>
-        {orderedProjects.slice(1, 3).map((project) => (
-          <Link className="next-project" to={`/project/${project.slug}`} key={project.slug}>
-            <MediaFrame media={project.media[0]} />
-            <strong>{project.shortTitle}</strong>
-          </Link>
-        ))}
       </section>
+
+      <CreativeLab />
     </div>
   );
 }
