@@ -1,0 +1,6 @@
+AmierHan-portfolio-site.zip
+node_modules/
+dist/
+coverage/
+.vite/
+dev-server*.log
