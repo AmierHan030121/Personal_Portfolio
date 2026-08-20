@@ -186,11 +186,13 @@
 
 .frankenfigs-badge__eyes {
   position: absolute;
-  top: 37%;
-  left: 39%;
+  top: 29%;
+  left: 50%;
   z-index: 2;
-  width: 54px;
-  height: 26px;
+  width: 108px;
+  height: 54px;
+  display: grid;
+  place-items: center;
   transform: translate(-50%, -50%);
 }
 

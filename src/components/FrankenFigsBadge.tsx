@@ -1,4 +1,4 @@
-import mascotUrl from "../../assets/amierhan-mascot.png";
+import mascotUrl from "../../assets/frankenfigs-character.png";
 import { SignalEyes } from "./SignalEyes";
 
 interface FrankenFigsBadgeProps {
@@ -8,7 +8,7 @@ interface FrankenFigsBadgeProps {
 export function FrankenFigsBadge({ className = "" }: FrankenFigsBadgeProps) {
   return (
     <div className={`frankenfigs-badge ${className}`.trim()} aria-label="会跟随鼠标移动的个人角色">
-      <img src={mascotUrl} alt="可爱的分析师卡通角色" />
+      <img src={mascotUrl} alt="粉色 Frankenfigs 卡通角色" />
       <span className="frankenfigs-badge__eyes"><SignalEyes compact /></span>
     </div>
   );
