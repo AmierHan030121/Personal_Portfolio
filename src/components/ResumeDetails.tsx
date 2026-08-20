@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, GraduationCap, Trophy } from "lucide-react";
+import { BriefcaseBusiness, Code2, GraduationCap, Trophy } from "lucide-react";
 import { profile } from "../content/profile";
 
 export function ResumeDetails() {
@@ -41,7 +41,7 @@ export function ResumeDetails() {
         <p><strong>竞赛奖项</strong> · {profile.awards.join(" · ")}</p>
       </div>
       <div className="resume-details__skills">
-        <h3>专业技能</h3>
+        <Code2 aria-label="专业技能" />
         <div>
           {profile.skillGroups.map((group) => <p key={group.label}><strong>{group.label}</strong> · {group.value}</p>)}
         </div>

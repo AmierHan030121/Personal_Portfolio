@@ -2,7 +2,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AnalysisRoute } from "../components/AnalysisRoute";
 import { MediaFrame } from "../components/MediaFrame";
-import { ProjectFortune } from "../components/ProjectFortune";
+import { FrankenFigsBadge } from "../components/FrankenFigsBadge";
 import { ProjectOrbit } from "../components/ProjectOrbit";
 import { SkillMarquee } from "../components/SkillMarquee";
 import { featuredProjects, orderedProjects } from "../content/projects";
@@ -27,6 +27,7 @@ export function HomePage() {
             <img src={profile.avatarUrl} alt={`${profile.name} 个人头像`} />
           </figure>
           <p className="hand-note">Hi, I am</p>
+          <FrankenFigsBadge className="frankenfigs-badge--home" />
         </div>
 
         <div className="home-intro">
@@ -36,13 +37,12 @@ export function HomePage() {
             <span><strong>所在地</strong>{profile.location}</span>
             <span><strong>求职方向</strong>{profile.desiredRole}</span>
             <span><strong>状态</strong>{profile.status}</span>
-            <span><strong>年龄</strong>{profile.birthDate.replaceAll("-", ".")} · {getCurrentAge()} 岁</span>
+            <span><strong>年龄</strong>{getCurrentAge()}岁</span>
           </div>
-          <p className="intro-copy">{profile.statement}</p>
           <SkillMarquee />
           <div className="intro-actions">
-            <Link className="primary-command" to="/dashboards">查看精选项目 <ArrowRight aria-hidden="true" /></Link>
-            <Link className="text-command" to="/research">浏览研究项目</Link>
+            <Link className="primary-command" to="/dashboards">精选看板 <ArrowRight aria-hidden="true" /></Link>
+            <Link className="primary-command" to="/research">研究论文 <ArrowRight aria-hidden="true" /></Link>
           </div>
         </div>
 
@@ -61,7 +61,6 @@ export function HomePage() {
           </figcaption>
         </figure>
 
-        <ProjectFortune projects={orderedProjects} />
       </section>
 
       <section className="evidence-showcase" aria-labelledby="evidence-title">

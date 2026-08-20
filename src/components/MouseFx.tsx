@@ -24,26 +24,38 @@ export function MouseFx() {
       updateHover(event.target instanceof Element ? event.target : null);
     };
 
-    const leave = () => {
+    const leave = (event: PointerEvent) => {
+      if (event.relatedTarget instanceof Node) return;
       setVisible(false);
       setIsHover(false);
     };
 
+    const resize = () => {
+      const clamp = (point: Point): Point => ({
+        x: Math.max(-40, Math.min(window.innerWidth + 20, point.x)),
+        y: Math.max(-40, Math.min(window.innerHeight + 20, point.y)),
+      });
+      target.current = clamp(target.current);
+      current.current = clamp(current.current);
+    };
+
     const tick = () => {
       const next = current.current;
-      next.x += (target.current.x - next.x) * 0.18;
-      next.y += (target.current.y - next.y) * 0.18;
+      next.x += (target.current.x - next.x) * 0.085;
+      next.y += (target.current.y - next.y) * 0.085;
       setPoint({ x: next.x, y: next.y });
       frame.current = window.requestAnimationFrame(tick);
     };
 
     window.addEventListener("pointermove", move, { passive: true });
-    window.addEventListener("pointerleave", leave, { passive: true });
+    window.addEventListener("resize", resize, { passive: true });
+    document.addEventListener("pointerout", leave, { passive: true });
     frame.current = window.requestAnimationFrame(tick);
 
     return () => {
       window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerleave", leave);
+      window.removeEventListener("resize", resize);
+      document.removeEventListener("pointerout", leave);
       if (frame.current !== null) window.cancelAnimationFrame(frame.current);
     };
   }, []);

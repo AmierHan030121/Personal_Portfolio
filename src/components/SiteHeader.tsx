@@ -9,10 +9,10 @@ interface SiteHeaderProps {
 }
 
 const navItems = [
-  { to: "/", label: "工作台", end: true },
+  { to: "/", label: "首页", end: true },
   { to: "/dashboards", label: "看板", end: false },
   { to: "/research", label: "研究", end: false },
-  { to: "/about", label: "关于", end: false },
+  { to: "/about", label: "关于我", end: false },
 ];
 
 export function SiteHeader({ isMenuOpen, onMenuToggle, onNavigate }: SiteHeaderProps) {
@@ -21,7 +21,7 @@ export function SiteHeader({ isMenuOpen, onMenuToggle, onNavigate }: SiteHeaderP
       <a className="skip-link" href="#main-content">跳到主要内容</a>
       <header className="site-header">
         <div className="site-header__inner">
-          <NavLink className="site-brand" to="/" onClick={onNavigate} aria-label="AmierHan 工作台首页">
+          <NavLink className="site-brand" to="/" onClick={onNavigate} aria-label="AmierHan 首页">
             <span className="site-brand__mark">Am</span>
             <span className="site-brand__text">
               <strong>AmierHan</strong>

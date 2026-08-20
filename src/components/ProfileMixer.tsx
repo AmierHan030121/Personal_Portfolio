@@ -40,15 +40,15 @@ export function ProfileMixer() {
 
   return (
     <div className="profile-mixer">
-      <button className="header-action" type="button" title="生成作品入口" aria-label="生成作品入口" aria-expanded={open} aria-controls="profile-mixer-panel" onClick={() => setOpen((value) => !value)}>
-        <WandSparkles aria-hidden="true" /> 生成入口
+      <button className="header-action" type="button" title="随机传送" aria-label="随机传送" aria-expanded={open} aria-controls="profile-mixer-panel" onClick={() => setOpen((value) => !value)}>
+        <WandSparkles aria-hidden="true" /> 随机传送
       </button>
       {open && (
-        <section className="profile-mixer__panel" id="profile-mixer-panel" aria-label="生成作品入口">
+          <section className="profile-mixer__panel" id="profile-mixer-panel" aria-label="随机传送">
           <header>
             <div>
               <span className="utility-label">Figspawn</span>
-              <strong>生成一个作品入口</strong>
+              <strong>随机传送到一个作品</strong>
             </div>
             <Sparkles aria-hidden="true" />
           </header>

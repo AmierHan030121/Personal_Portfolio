@@ -1,15 +1,15 @@
-import frankenFigsCover from "../../assets/frankenfigs-cover.jpg";
+import mascotUrl from "../../assets/amierhan-mascot.png";
+import { SignalEyes } from "./SignalEyes";
 
-export function FrankenFigsBadge() {
+interface FrankenFigsBadgeProps {
+  className?: string;
+}
+
+export function FrankenFigsBadge({ className = "" }: FrankenFigsBadgeProps) {
   return (
-    <a
-      className="frankenfigs-badge"
-      href="https://www.figma.com/community/file/1540896037061781845/frankenfigs"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="打开 FrankenFigs Figma 素材"
-    >
-      <img src={frankenFigsCover} alt="FrankenFigs 粉色圆眼形象" />
-    </a>
+    <div className={`frankenfigs-badge ${className}`.trim()} aria-label="会跟随鼠标移动的个人角色">
+      <img src={mascotUrl} alt="可爱的分析师卡通角色" />
+      <span className="frankenfigs-badge__eyes"><SignalEyes compact /></span>
+    </div>
   );
 }

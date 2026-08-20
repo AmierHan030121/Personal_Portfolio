@@ -53,4 +53,4 @@ npm run preview
 2. 将项目原图/PDF 放入 `作品/`，将 PDF 首页预览图放入 `assets/previews/`，再通过 Vite import 使用。
 3. 运行 `npm run typecheck && npm run test && npm run build` 完成提交前检查。
 
-首页的 `Resume snapshot` 只展示从简历提取的教育、实习、技能和奖项摘要，`ProjectOrbit` 使用真实作品预览做环绕展示，不公开完整简历 PDF；右上角 `生成入口` 和页面右上角 FrankenFigs 形象均为本地资源，形象点击后才打开原始 Figma 社区素材。网站不上传或引用未经确认的视频素材。
+首页的 `Resume snapshot` 只展示从简历提取的教育、实习、技能和奖项摘要，`ProjectOrbit` 使用真实作品预览做环绕展示，不公开完整简历 PDF；右上角 `随机传送` 只在本地项目数据中筛选入口，页面上的分析师插画也是本地资源。网站不上传或引用未经确认的视频、远程媒体或第三方素材。

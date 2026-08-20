@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
-export function SignalEyes() {
+interface SignalEyesProps {
+  compact?: boolean;
+}
+
+export function SignalEyes({ compact = false }: SignalEyesProps) {
   const [position, setPosition] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
@@ -15,7 +19,7 @@ export function SignalEyes() {
   }, []);
 
   return (
-    <div className="signal-eyes" aria-label="会跟随鼠标移动的圆眼睛">
+    <div className={`signal-eyes${compact ? " signal-eyes--compact" : ""}`} aria-label="会跟随鼠标移动的圆眼睛">
       <span className="signal-eyes__pair" aria-hidden="true">
         <span className="signal-eye"><i style={{ left: `${position.x}%`, top: `${position.y}%` }} /></span>
         <span className="signal-eye"><i style={{ left: `${position.x}%`, top: `${position.y}%` }} /></span>

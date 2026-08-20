@@ -65,7 +65,7 @@ export const profile = {
     { label: "自动化", value: "RPA · DataWorks · Tableau Prep · Codex / Cursor" },
   ],
   contacts: [
-    { label: "Email", value: "amierhan030121@gmail.com", href: "mailto:amierhan030121@gmail.com" },
+    { label: "Email", value: "amierhan0121@163.com", href: "mailto:amierhan0121@163.com" },
     { label: "Phone", value: "188 5887 8167", href: "tel:18858878167" },
     { label: "Web", value: "www.amportfolio.top", href: "https://www.amportfolio.top" },
   ],
