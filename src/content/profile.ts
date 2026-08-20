@@ -2,6 +2,10 @@ import avatarUrl from "../../assets/avatar-amierhan.jpg";
 
 export const profile = {
   name: "AmierHan",
+  birthDate: "2003-01-21",
+  location: "杭州",
+  desiredRole: "数据分析师",
+  status: "研究生在读",
   title: "数据分析 · 商业智能 · 研究建模",
   statement: "把业务问题拆解为清晰指标，用可视化、实验与模型支持可执行决策。",
   avatarUrl,
@@ -83,3 +87,12 @@ export const profile = {
     },
   ],
 } as const;
+
+export function getCurrentAge(today = new Date()) {
+  const birthDate = new Date(`${profile.birthDate}T00:00:00`);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const beforeBirthday = today.getMonth() < birthDate.getMonth()
+    || (today.getMonth() === birthDate.getMonth() && today.getDate() < birthDate.getDate());
+  if (beforeBirthday) age -= 1;
+  return age;
+}

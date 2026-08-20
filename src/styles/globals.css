@@ -24,6 +24,34 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+@media (pointer: fine) {
+  body,
+  body a,
+  body button {
+    cursor: none;
+  }
+
+  body input,
+  body textarea,
+  body select {
+    cursor: text;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
 body::before {
   content: "";
   position: fixed;

@@ -4,9 +4,9 @@ import { AnalysisRoute } from "../components/AnalysisRoute";
 import { MediaFrame } from "../components/MediaFrame";
 import { ProjectFortune } from "../components/ProjectFortune";
 import { ProjectOrbit } from "../components/ProjectOrbit";
-import { ResumeSnapshot } from "../components/ResumeSnapshot";
+import { SkillMarquee } from "../components/SkillMarquee";
 import { featuredProjects, orderedProjects } from "../content/projects";
-import { profile } from "../content/profile";
+import { getCurrentAge, profile } from "../content/profile";
 
 export function HomePage() {
   const featured = featuredProjects[0];
@@ -17,9 +17,13 @@ export function HomePage() {
         <span className="coordinate-label coordinate-label--x">X / BUSINESS QUESTION</span>
         <span className="coordinate-label coordinate-label--y">Y / DECISION CLARITY</span>
         <div className="portrait-zone">
-          <figure className="portrait-orbit">
-            <span className="orbit-label orbit-label--top">Observe</span>
-            <span className="orbit-label orbit-label--side">Explain</span>
+          <figure className="portrait-orbit" data-cursor-hover>
+            <svg className="portrait-orbit__ring" viewBox="0 0 240 240" aria-hidden="true">
+              <defs>
+                <path id="portrait-ring-path" d="M 120,120 m -101,0 a 101,101 0 1,1 202,0 a 101,101 0 1,1 -202,0" />
+              </defs>
+              <text><textPath href="#portrait-ring-path">DATA · ANALYSIS · INSIGHT · DATA · ANALYSIS · INSIGHT · </textPath></text>
+            </svg>
             <img src={profile.avatarUrl} alt={`${profile.name} 个人头像`} />
           </figure>
           <p className="hand-note">Hi, I am</p>
@@ -28,7 +32,14 @@ export function HomePage() {
         <div className="home-intro">
           <h1 id="home-title">{profile.name}</h1>
           <p className="role-line">{profile.title}</p>
+          <div className="home-facts" aria-label="个人信息">
+            <span><strong>所在地</strong>{profile.location}</span>
+            <span><strong>求职方向</strong>{profile.desiredRole}</span>
+            <span><strong>状态</strong>{profile.status}</span>
+            <span><strong>年龄</strong>{profile.birthDate.replaceAll("-", ".")} · {getCurrentAge()} 岁</span>
+          </div>
           <p className="intro-copy">{profile.statement}</p>
+          <SkillMarquee />
           <div className="intro-actions">
             <Link className="primary-command" to="/dashboards">查看精选项目 <ArrowRight aria-hidden="true" /></Link>
             <Link className="text-command" to="/research">浏览研究项目</Link>
@@ -50,7 +61,6 @@ export function HomePage() {
           </figcaption>
         </figure>
 
-        <ResumeSnapshot />
         <ProjectFortune projects={orderedProjects} />
       </section>
 

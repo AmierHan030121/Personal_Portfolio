@@ -1,10 +1,10 @@
 .workbench {
   position: relative;
-  min-height: 850px;
+  min-height: 790px;
   padding: 52px 0 58px;
   display: grid;
   grid-template-columns: 210px minmax(260px, 0.75fr) minmax(500px, 1.4fr);
-  grid-template-rows: 255px 112px 230px;
+  grid-template-rows: 320px 112px 190px;
   gap: 26px 30px;
 }
 
@@ -41,6 +41,12 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
+  transition: transform 220ms ease, border-color 220ms ease;
+}
+
+.portrait-orbit:hover {
+  border-color: var(--coral);
+  transform: translateY(-3px) rotate(-2deg);
 }
 
 .portrait-orbit::before,
@@ -65,6 +71,32 @@
   object-fit: cover;
   filter: saturate(0.82) contrast(1.03);
   box-shadow: var(--shadow);
+}
+
+.portrait-orbit__ring {
+  position: absolute;
+  inset: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  z-index: 3;
+  pointer-events: none;
+  animation: portrait-ring-spin 24s linear infinite;
+}
+
+.portrait-orbit__ring text {
+  fill: #ffffff;
+  font-family: var(--font-data);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  paint-order: stroke;
+  stroke: var(--ink);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+@keyframes portrait-ring-spin {
+  to { transform: rotate(360deg); }
 }
 
 .orbit-label {
@@ -102,6 +134,155 @@
   align-self: center;
   display: grid;
   gap: 13px;
+}
+
+.home-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 16px;
+  max-width: 430px;
+  padding-top: 2px;
+  color: var(--muted);
+  font-family: var(--font-data);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.home-facts span {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.home-facts strong {
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.skill-marquee {
+  width: min(100%, 590px);
+  margin-top: 2px;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.skill-marquee__viewport {
+  overflow: hidden;
+  padding: 9px 0 8px;
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.skill-marquee__track {
+  width: max-content;
+  display: flex;
+  animation: skill-marquee-slide 28s linear infinite;
+}
+
+.skill-marquee:hover .skill-marquee__track,
+.skill-marquee:focus-within .skill-marquee__track {
+  animation-play-state: paused;
+}
+
+.skill-marquee__group {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-right: 18px;
+}
+
+.skill-marquee__item {
+  min-width: 72px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted);
+  font-family: var(--font-data);
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.skill-marquee__icon {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 7px;
+  background: var(--surface);
+}
+
+.skill-marquee__icon svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2.3;
+}
+
+@keyframes skill-marquee-slide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.mouse-fx {
+  position: fixed;
+  top: -12px;
+  left: -12px;
+  z-index: 120;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease, width 160ms ease, height 160ms ease, margin 160ms ease, border-radius 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  will-change: transform;
+}
+
+.mouse-fx::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 17px;
+  height: 20px;
+  background: var(--blue);
+  border: 2px solid var(--surface);
+  clip-path: polygon(0 0, 100% 42%, 50% 49%, 29% 100%);
+  filter: drop-shadow(1px 2px 0 rgba(23, 32, 42, 0.38));
+  transform: rotate(-12deg);
+  transition: opacity 120ms ease, transform 160ms ease;
+}
+
+.mouse-fx.is-visible {
+  opacity: 1;
+}
+
+.mouse-fx.is-hover {
+  width: 34px;
+  height: 34px;
+  margin: -6px 0 0 -6px;
+  border: 1px solid rgba(46, 107, 255, 0.72);
+  border-radius: 50%;
+  background: rgba(46, 107, 255, 0.16);
+  box-shadow: 0 0 0 5px rgba(46, 107, 255, 0.08);
+}
+
+.mouse-fx.is-hover::before {
+  top: 9px;
+  left: 9px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  background: var(--blue);
+  clip-path: none;
+  filter: none;
+  transform: none;
 }
 
 .home-intro h1 {
@@ -551,11 +732,15 @@
 }
 
 .project-fortune {
-  grid-column: 3;
+  grid-column: 1 / -1;
   grid-row: 3;
   min-width: 0;
-  padding: 13px 0 0 18px;
-  border-left: 1px solid var(--line);
+  padding: 13px 0 0;
+  display: grid;
+  grid-template-columns: minmax(190px, 0.75fr) minmax(170px, 0.9fr) minmax(0, 1.7fr) auto;
+  align-items: start;
+  gap: 18px;
+  border-left: 0;
 }
 
 .project-fortune__topline svg {
@@ -575,9 +760,13 @@
   margin-top: 4px;
 }
 
+.project-fortune__hint {
+  margin-top: 4px;
+}
+
 .project-fortune__result {
   min-width: 0;
-  margin-top: 10px;
+  margin-top: 0;
   padding-left: 10px;
   border-left: 2px solid var(--coral);
 }
@@ -604,7 +793,7 @@
 }
 
 .project-fortune__actions {
-  margin-top: 10px;
+  margin-top: 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1584,6 +1773,7 @@
 @media (max-width: 1050px) {
   .workbench {
     grid-template-columns: 170px minmax(250px, 0.8fr) minmax(400px, 1.2fr);
+    grid-template-rows: 340px 112px 190px;
   }
 
   .portrait-orbit {
@@ -1872,6 +2062,15 @@
     font-size: clamp(54px, 17vw, 70px);
   }
 
+  .home-facts {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .skill-marquee {
+    width: 100%;
+  }
+
   .intro-copy {
     font-size: 14px;
     line-height: 1.75;
@@ -1989,6 +2188,11 @@
     padding: 13px 0 0;
     border-left: 0;
     border-top: 1px solid var(--line);
+    display: block;
+  }
+
+  .project-fortune__actions {
+    margin-top: 10px;
   }
 
   .resume-snapshot__grid {
