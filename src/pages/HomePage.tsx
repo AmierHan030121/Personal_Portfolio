@@ -2,7 +2,9 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AnalysisRoute } from "../components/AnalysisRoute";
 import { MediaFrame } from "../components/MediaFrame";
-import { ProjectIndex } from "../components/ProjectIndex";
+import { ProjectFortune } from "../components/ProjectFortune";
+import { ProjectOrbit } from "../components/ProjectOrbit";
+import { ResumeSnapshot } from "../components/ResumeSnapshot";
 import { featuredProjects, orderedProjects } from "../content/projects";
 import { profile } from "../content/profile";
 
@@ -43,46 +45,24 @@ export function HomePage() {
           <MediaFrame media={featured.media[0]} eager className="media-window" />
           <figcaption>
             <span className="project-type">{featured.capabilities.join(" / ")}</span>
-            <strong>{featured.title}</strong>
+            <strong title={featured.title}>{featured.shortTitle}</strong>
             <Link to={`/project/${featured.slug}`} aria-label={`打开${featured.title}`}><ArrowUpRight aria-hidden="true" /></Link>
           </figcaption>
         </figure>
 
-        <section className="methods-panel" aria-labelledby="methods-title">
-          <span className="utility-label" id="methods-title">Methods & tools</span>
-          {profile.capabilities.map((item) => (
-            <div className="method-row" key={item.title}>
-              <span>{item.title}</span>
-              <b>{item.tools.join(" / ")}</b>
-              <i aria-hidden="true"></i>
-            </div>
-          ))}
-        </section>
-
-        <ProjectIndex projects={orderedProjects} />
+        <ResumeSnapshot />
+        <ProjectFortune projects={orderedProjects} />
       </section>
 
       <section className="evidence-showcase" aria-labelledby="evidence-title">
         <header className="evidence-showcase__head">
           <div>
-            <span className="utility-label">Evidence library / 06 projects</span>
-            <h2 id="evidence-title">每一项结论，都能回到真实文件。</h2>
+            <span className="utility-label">作品一览 / {orderedProjects.length}</span>
+            <h2 id="evidence-title">看板与研究作品</h2>
           </div>
           <Link className="row-link" to="/dashboards">进入完整项目库 <ArrowRight aria-hidden="true" /></Link>
         </header>
-        <div className="evidence-grid">
-          {orderedProjects.slice(1, 5).map((project, index) => (
-            <Link className={`evidence-item evidence-item--${index + 1}`} to={`/project/${project.slug}`} key={project.slug}>
-              <MediaFrame media={project.media[0]} />
-              <span className="evidence-item__meta">
-                <i>{String(project.order).padStart(2, "0")}</i>
-                <b>{project.shortTitle}</b>
-                <small>{project.kind === "dashboard" ? "Dashboard" : "Research"}</small>
-                <ArrowUpRight aria-hidden="true" />
-              </span>
-            </Link>
-          ))}
-        </div>
+        <ProjectOrbit projects={orderedProjects.slice(0, 5)} />
       </section>
 
     </div>

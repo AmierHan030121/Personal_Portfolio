@@ -28,7 +28,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <span>{String(index + 1).padStart(2, "0")}</span>
           <span>{project.kind === "dashboard" ? "Dashboard" : "Research"}</span>
         </div>
-        <h2><Link to={`/project/${project.slug}`}>{project.title}</Link></h2>
+        <h2 title={project.title}><Link to={`/project/${project.slug}`} aria-label={`打开${project.title}`}>{project.shortTitle}</Link></h2>
         <p>{project.summary}</p>
         <ul className="tag-list" aria-label="项目能力标签">
           {project.capabilities.map((capability) => <li key={capability}>{capability}</li>)}

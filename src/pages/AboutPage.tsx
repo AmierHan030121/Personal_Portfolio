@@ -1,44 +1,28 @@
-import { ArrowUpRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { SignalEyes } from "../components/SignalEyes";
+import { FrankenFigsBadge } from "../components/FrankenFigsBadge";
+import { ResumeDetails } from "../components/ResumeDetails";
 import { profile } from "../content/profile";
 
 export function AboutPage() {
   return (
     <div className="page page-about">
       <section className="page-heading" aria-labelledby="about-title">
-        <span className="eyebrow">Profile / working approach</span>
-        <h1 id="about-title">关于 AmierHan</h1>
-        <p>{profile.statement}</p>
+        <div className="page-heading__copy">
+          <span className="eyebrow">Profile</span>
+          <h1 id="about-title">关于 AmierHan</h1>
+        </div>
+        <FrankenFigsBadge />
       </section>
-      <section className="about-layout">
+      <section className="about-layout about-layout--resume">
         <article className="about-panel about-panel--identity">
+          <SignalEyes />
           <img src={profile.avatarUrl} alt={`${profile.name} 个人头像`} />
-          <div>
-            <span className="utility-label">Current focus</span>
-            <h2>{profile.title}</h2>
-            <p>以真实作品为证据，连接业务问题、分析方法和决策表达。</p>
+          <div className="contact-block">
+            <span className="utility-label">Contact</span>
+            {profile.contacts.map((contact) => <a key={contact.label} href={contact.href} target={contact.label === "Web" ? "_blank" : undefined} rel={contact.label === "Web" ? "noopener noreferrer" : undefined}><small>{contact.label}</small><strong>{contact.value}</strong></a>)}
           </div>
         </article>
-        <article className="about-panel">
-          <span className="utility-label">Capabilities</span>
-          <div className="capability-list">
-            {profile.capabilities.map((item) => (
-              <div key={item.title}>
-                <h2>{item.title}</h2>
-                <p>{item.detail}</p>
-                <span>{item.tools.join(" · ")}</span>
-              </div>
-            ))}
-          </div>
-        </article>
-        <article className="about-panel about-panel--next">
-          <span className="utility-label">Start with a project</span>
-          <h2>先看真实作品，再了解我的方法。</h2>
-          <div>
-            <Link className="primary-command" to="/dashboards">查看看板 <ArrowUpRight aria-hidden="true" /></Link>
-            <Link className="text-command" to="/research">查看研究</Link>
-          </div>
-        </article>
+        <ResumeDetails />
       </section>
     </div>
   );

@@ -9,6 +9,8 @@ import sailboatPreview from "../../assets/previews/二手帆船市场定价模�
 import sailboatPdf from "../../作品/二手帆船市场定价模型研究.pdf";
 import regionalPreview from "../../assets/previews/省域研发投入与高质量知识产权转化差异识别及预测（Codex Agent 协同）.png";
 import regionalPdf from "../../作品/省域研发投入与高质量知识产权转化差异识别及预测（Codex Agent 协同）.pdf";
+import computeEnergyPreview from "../../assets/previews/power-compute-coordination.png";
+import computeEnergyPdf from "../../作品/2026华数杯AI电力分析.pdf";
 
 export type ProjectKind = "dashboard" | "research";
 export type MediaKind = "image" | "gallery" | "pdf";
@@ -30,6 +32,7 @@ export interface Project {
   summary: string;
   question: string;
   capabilities: string[];
+  filterLabel: string;
   tools: string[];
   media: ProjectMedia[];
   featured?: boolean;
@@ -45,6 +48,7 @@ export const projects: Project[] = [
     summary: "构建增长分析视图，结合 GMV 诊断、RFM 分层、A/B 实验结果与异常检测形成策略建议。",
     question: "围绕电商增长漏斗、用户分层与实验决策组织分析视图。",
     capabilities: ["增长分析", "实验评估", "用户分层"],
+    filterLabel: "电商增长",
     tools: ["Python", "SQL", "Excel", "HTML BI"],
     media: [
       {
@@ -65,6 +69,7 @@ export const projects: Project[] = [
     summary: "聚焦日增粉、掉粉、粉丝来源与视频趋势，联动观察内容表现与粉丝结构变化。",
     question: "以内容运营视角观察粉丝增长、来源结构和视频生命周期。",
     capabilities: ["内容运营", "增长分析", "趋势监控"],
+    filterLabel: "B站监控",
     tools: ["Tableau", "可视分析"],
     media: [
       {
@@ -90,6 +95,7 @@ export const projects: Project[] = [
     summary: "围绕经营指标、学员转化与课程表现搭建多层级经营分析视图。",
     question: "以经营分析视角组织核心指标、转化过程与课程表现。",
     capabilities: ["经营分析", "教育行业", "指标体系"],
+    filterLabel: "K12 经营",
     tools: ["Power BI"],
     media: [
       {
@@ -110,6 +116,7 @@ export const projects: Project[] = [
     summary: "覆盖结算计费链路核心监控，聚焦异常识别、指标追踪与结算过程透明化。",
     question: "围绕物流结算计费链路组织监控指标与异常观察。",
     capabilities: ["流程监控", "异常识别", "物流结算"],
+    filterLabel: "物流结算",
     tools: ["FineBI"],
     media: [
       {
@@ -130,6 +137,7 @@ export const projects: Project[] = [
     summary: "使用结构化特征与建模方法识别价格驱动因素，为二手帆船市场定价提供量化分析。",
     question: "围绕二手帆船市场定价与价格驱动因素开展研究。",
     capabilities: ["回归建模", "特征工程", "价格预测"],
+    filterLabel: "帆船定价",
     tools: ["Python", "统计建模"],
     media: [
       {
@@ -151,6 +159,7 @@ export const projects: Project[] = [
     summary: "分析省域研发投入与高质量知识产权转化差异，并构建预测逻辑与协同优化建议。",
     question: "围绕省域研发投入与高质量知识产权转化差异开展识别与预测。",
     capabilities: ["区域分析", "预测建模", "政策研究"],
+    filterLabel: "省域研发",
     tools: ["Python", "Codex Agent"],
     media: [
       {
@@ -162,6 +171,27 @@ export const projects: Project[] = [
       },
     ],
     order: 6,
+  },
+  {
+    slug: "compute-energy-coordination",
+    title: "面向算电协同的多目标调度优化研究",
+    shortTitle: "算电协同调度",
+    kind: "research",
+    summary: "在六区域异构 GPU 集群与真实任务数据上，评估碳感知调度、储能优化与多目标候选解。",
+    question: "如何在 GPU 任务服务水平、峰值利用率与算电成本之间寻找可复现的离线候选方案？",
+    capabilities: ["多目标优化", "GPU 调度", "碳感知"],
+    filterLabel: "算电协同",
+    tools: ["Python", "多目标优化", "调度建模"],
+    media: [
+      {
+        kind: "pdf",
+        src: computeEnergyPdf,
+        preview: computeEnergyPreview,
+        alt: "面向算电协同的多目标调度优化研究论文首页",
+        label: "华数杯研究 PDF",
+      },
+    ],
+    order: 7,
   },
 ];
 

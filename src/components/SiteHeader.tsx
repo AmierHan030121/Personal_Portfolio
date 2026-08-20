@@ -1,5 +1,6 @@
 import { Menu, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { ProfileMixer } from "./ProfileMixer";
 
 interface SiteHeaderProps {
   isMenuOpen: boolean;
@@ -42,10 +43,7 @@ export function SiteHeader({ isMenuOpen, onMenuToggle, onNavigate }: SiteHeaderP
             ))}
           </nav>
 
-          <NavLink className="header-action" to="/dashboards" onClick={onNavigate}>
-            查看作品
-            <span aria-hidden="true">↗</span>
-          </NavLink>
+          <ProfileMixer />
 
           <button
             className="menu-button"

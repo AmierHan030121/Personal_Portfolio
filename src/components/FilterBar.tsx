@@ -7,7 +7,7 @@ interface FilterBarProps {
 
 export function FilterBar({ options, selected, onSelect, resultCount }: FilterBarProps) {
   return (
-    <div className="filter-bar" aria-label="按能力筛选项目">
+    <div className="filter-bar" aria-label="按项目名称筛选">
       <div className="filter-bar__controls">
         {options.map((option) => (
           <button key={option} type="button" aria-pressed={selected === option} onClick={() => onSelect(option)}>
