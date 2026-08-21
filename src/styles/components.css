@@ -1415,6 +1415,7 @@
 }
 
 .about-layout--resume > .resume-details {
+  min-width: 0;
   margin: 0;
 }
 
@@ -1849,19 +1850,6 @@
     right: 0;
   }
 
-  .resume-details__projects {
-    grid-template-columns: 1fr;
-  }
-
-  .resume-details__projects article,
-  .resume-details__projects article + article {
-    padding: 20px 0;
-    border-left: 0;
-  }
-
-  .resume-details__projects article + article {
-    border-top: 1px solid var(--line);
-  }
 }
 
 .resume-details {
@@ -1986,6 +1974,33 @@
 
 .resume-details__skills p + p {
   margin-top: 5px;
+}
+
+@media (max-width: 1050px) {
+  .resume-details__projects {
+    display: flex;
+    overflow-x: auto;
+    scroll-padding-inline: 0;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+
+  .resume-details__projects article,
+  .resume-details__projects article + article {
+    flex: 0 0 min(82vw, 340px);
+    min-width: 250px;
+    padding: 20px 18px;
+    scroll-snap-align: start;
+  }
+
+  .resume-details__projects article:first-child {
+    padding-left: 0;
+  }
+
+  .resume-details__projects article:last-child {
+    padding-right: 0;
+  }
 }
 
 @media (max-width: 760px) {
@@ -2154,7 +2169,9 @@
 
   .analysis-route {
     order: 4;
-    min-height: 84px;
+    width: 100%;
+    min-height: 96px;
+    align-self: stretch;
   }
 
   .analysis-route__step {
@@ -2168,8 +2185,10 @@
   .analysis-route__status {
     right: 0;
     bottom: -2px;
-    max-width: 190px;
+    width: min(100%, 220px);
+    max-width: none;
     font-size: 8px;
+    text-align: right;
   }
 
   .featured-media {
