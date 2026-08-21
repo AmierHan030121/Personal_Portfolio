@@ -24,8 +24,7 @@ export function MouseFx() {
       updateHover(event.target instanceof Element ? event.target : null);
     };
 
-    const leave = (event: PointerEvent) => {
-      if (event.relatedTarget instanceof Node) return;
+    const leave = () => {
       setVisible(false);
       setIsHover(false);
     };
@@ -49,13 +48,15 @@ export function MouseFx() {
 
     window.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("resize", resize, { passive: true });
-    document.addEventListener("pointerout", leave, { passive: true });
+    window.addEventListener("pointerleave", leave, { passive: true });
+    window.addEventListener("blur", leave, { passive: true });
     frame.current = window.requestAnimationFrame(tick);
 
     return () => {
       window.removeEventListener("pointermove", move);
       window.removeEventListener("resize", resize);
-      document.removeEventListener("pointerout", leave);
+      window.removeEventListener("pointerleave", leave);
+      window.removeEventListener("blur", leave);
       if (frame.current !== null) window.cancelAnimationFrame(frame.current);
     };
   }, []);
