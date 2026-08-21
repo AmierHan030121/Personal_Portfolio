@@ -189,8 +189,8 @@
   top: 29%;
   left: 50%;
   z-index: 2;
-  width: 108px;
-  height: 54px;
+  width: 82px;
+  height: 42px;
   display: grid;
   place-items: center;
   transform: translate(-50%, -50%);

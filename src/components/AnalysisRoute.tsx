@@ -35,9 +35,6 @@ export function AnalysisRoute() {
         <circle cx="286" cy="44" r="5" />
         <circle cx="742" cy="28" r="5" />
       </svg>
-      <span className="analysis-route__status" aria-live="polite">
-        {String(activeStep + 1).padStart(2, "0")} / 03 · {steps[activeStep].detail}
-      </span>
     </div>
   );
 }

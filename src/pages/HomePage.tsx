@@ -66,7 +66,6 @@ export function HomePage() {
       <section className="evidence-showcase" aria-labelledby="evidence-title">
         <header className="evidence-showcase__head">
           <div>
-            <span className="utility-label">作品一览 / {orderedProjects.length}</span>
             <h2 id="evidence-title">看板与研究作品</h2>
           </div>
           <Link className="row-link" to="/dashboards">进入完整项目库 <ArrowRight aria-hidden="true" /></Link>

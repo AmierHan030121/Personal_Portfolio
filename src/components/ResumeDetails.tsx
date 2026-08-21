@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, Code2, GraduationCap, Trophy } from "lucide-react";
+import { BriefcaseBusiness, Code2, FolderKanban, GraduationCap, Trophy } from "lucide-react";
 import { profile } from "../content/profile";
 
 export function ResumeDetails() {
@@ -17,25 +17,40 @@ export function ResumeDetails() {
           <small>主修课程：{profile.resumeDetails.coursework.join("、")}</small>
         </div>
       </div>
-      <div className="resume-details__experience">
+      <section className="resume-details__experience" aria-labelledby="experience-title">
         <BriefcaseBusiness aria-hidden="true" />
-        <div>
-          <h3>{profile.experience.company} · {profile.experience.role}</h3>
-          <span className="resume-details__period">{profile.experience.period}</span>
-          <ul>{profile.experience.highlights.map((item) => <li key={item}>{item}</li>)}</ul>
+        <div className="resume-details__track-wrap">
+          <h3 id="experience-title">实习经历</h3>
+          <div className="resume-details__track">
+            {profile.experiences.map((experience) => (
+              <article key={`${experience.company}-${experience.period}`}>
+                <div className="resume-details__project-head">
+                  <h4>{experience.company} · {experience.role}</h4>
+                  <span>{experience.period}</span>
+                </div>
+                <ul>{experience.highlights.map((item) => <li key={item}>{item}</li>)}</ul>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="resume-details__projects">
-        {profile.resumeDetails.projects.map((project) => (
-          <article key={project.title}>
-            <div className="resume-details__project-head">
-              <h3>{project.title}</h3>
-              <span>{project.period}</span>
-            </div>
-            <ul>{project.points.map((point) => <li key={point}>{point}</li>)}</ul>
-          </article>
-        ))}
-      </div>
+      </section>
+      <section className="resume-details__projects" aria-labelledby="projects-title">
+        <FolderKanban aria-hidden="true" />
+        <div className="resume-details__track-wrap">
+          <h3 id="projects-title">项目经历</h3>
+          <div className="resume-details__track">
+            {profile.resumeDetails.projects.map((project) => (
+              <article key={project.title}>
+                <div className="resume-details__project-head">
+                  <h4>{project.title}</h4>
+                  <span>{project.period}</span>
+                </div>
+                <ul>{project.points.map((point) => <li key={point}>{point}</li>)}</ul>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
       <div className="resume-details__awards">
         <Trophy aria-hidden="true" />
         <p><strong>竞赛奖项</strong> · {profile.awards.join(" · ")}</p>

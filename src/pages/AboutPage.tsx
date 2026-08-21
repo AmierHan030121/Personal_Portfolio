@@ -1,4 +1,3 @@
-import { SignalEyes } from "../components/SignalEyes";
 import { FrankenFigsBadge } from "../components/FrankenFigsBadge";
 import { ResumeDetails } from "../components/ResumeDetails";
 import { profile } from "../content/profile";
@@ -15,7 +14,6 @@ export function AboutPage() {
       </section>
       <section className="about-layout about-layout--resume">
         <article className="about-panel about-panel--identity">
-          <SignalEyes />
           <img src={profile.avatarUrl} alt={`${profile.name} 个人头像`} />
           <div className="contact-block">
             <span className="utility-label">Contact</span>

@@ -1,5 +1,18 @@
 import avatarUrl from "../../assets/avatar-amierhan.jpg";
 
+const experiences = [
+  {
+    company: "易成教育",
+    role: "数据运营实习生",
+    period: "2025.07 — 2025.09",
+    highlights: [
+      "处理年度 1 万+ 条学生课时、缴费与退款数据。",
+      "将数据准确率从约 60% 提升至 99%+，人工整理时间减少 60%。",
+      "建立财务备注标准化 SOP，人工误差降至 1% 以下。",
+    ],
+  },
+] as const;
+
 export const profile = {
   name: "AmierHan",
   birthDate: "2003-01-21",
@@ -16,16 +29,8 @@ export const profile = {
     gpa: "GPA 4.2 / 5",
     undergraduate: "数据科学与大数据技术 · 本科（GPA 4.0 / 5）",
   },
-  experience: {
-    company: "易成教育",
-    role: "数据运营实习生",
-    period: "2025.07 — 2025.09",
-    highlights: [
-      "处理年度 1 万+ 条学生课时、缴费与退款数据。",
-      "将数据准确率从约 60% 提升至 99%+，人工整理时间减少 60%。",
-      "建立财务备注标准化 SOP，人工误差降至 1% 以下。",
-    ],
-  },
+  experience: experiences[0],
+  experiences,
   resumeDetails: {
     coursework: ["数据库原理与技术", "数学建模", "机器学习", "回归分析", "概率统计", "自然语言处理", "Linux 操作系统原理"],
     projects: [

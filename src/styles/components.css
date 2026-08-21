@@ -330,6 +330,24 @@
   transform: translateX(-50%);
 }
 
+.frankenfigs-badge--home .signal-eyes--compact .signal-eye {
+  width: 48px;
+  height: 48px;
+}
+
+.frankenfigs-badge--home .signal-eyes--compact .signal-eye i {
+  width: 18px;
+  height: 18px;
+  box-shadow: inset 0 0 0 5px var(--ink), 0 0 0 1px rgba(15, 143, 131, 0.16);
+}
+
+.frankenfigs-badge--home .signal-eyes--compact .signal-eye i::after {
+  top: 2px;
+  left: 3px;
+  width: 4px;
+  height: 4px;
+}
+
 .primary-command {
   border: 0;
   background: var(--blue);
@@ -409,20 +427,6 @@
 .analysis-route__step.is-active i {
   background: var(--blue);
   box-shadow: 0 0 0 4px var(--blue-soft);
-}
-
-.analysis-route__status {
-  position: absolute;
-  right: 0;
-  bottom: -2px;
-  z-index: 2;
-  max-width: 270px;
-  padding: 3px 6px;
-  background: var(--canvas);
-  color: var(--muted);
-  font-family: var(--font-data);
-  font-size: 9px;
-  line-height: 1.4;
 }
 
 .analysis-route__step--one { left: 0; top: 63px; }
@@ -938,7 +942,7 @@
 }
 
 .evidence-showcase {
-  padding: 54px 0 76px;
+  padding: 44px 0 76px;
   border-top: 1px solid var(--ink);
 }
 
@@ -952,7 +956,7 @@
 
 .evidence-showcase h2 {
   max-width: 680px;
-  margin-top: 10px;
+  margin-top: 0;
   font-family: STSong, SimSun, serif;
   font-size: clamp(28px, 3.2vw, 46px);
   line-height: 1.2;
@@ -1454,23 +1458,23 @@
 }
 
 .signal-eyes--compact .signal-eye {
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   background: rgba(255, 255, 255, 0.94);
   box-shadow: inset 0 0 0 1px rgba(23, 32, 42, 0.12), 1px 2px 0 rgba(46, 107, 255, 0.16);
 }
 
 .signal-eyes--compact .signal-eye i {
-  width: 18px;
-  height: 18px;
-  box-shadow: inset 0 0 0 5px var(--ink), 0 0 0 1px rgba(15, 143, 131, 0.16);
+  width: 13px;
+  height: 13px;
+  box-shadow: inset 0 0 0 4px var(--ink), 0 0 0 1px rgba(15, 143, 131, 0.16);
 }
 
 .signal-eyes--compact .signal-eye i::after {
-  top: 2px;
-  left: 3px;
-  width: 4px;
-  height: 4px;
+  top: 1px;
+  left: 2px;
+  width: 3px;
+  height: 3px;
 }
 
 .signal-eye {
@@ -1907,7 +1911,8 @@
 }
 
 .resume-details__experience > div,
-.resume-details__projects article {
+.resume-details__projects > div {
+  min-width: 0;
   position: relative;
 }
 
@@ -1925,23 +1930,54 @@
 
 .resume-details__projects {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 15px;
+  padding-top: 20px;
   border-bottom: 1px solid var(--line);
 }
 
-.resume-details__projects article {
-  min-width: 0;
-  padding: 22px 20px 22px 0;
+.resume-details__projects > svg {
+  margin-top: 2px;
 }
 
-.resume-details__projects article + article {
+.resume-details__experience h3,
+.resume-details__projects h3 {
+  margin-bottom: 12px;
+}
+
+.resume-details__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-padding-inline: 0;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+}
+
+.resume-details__track article {
+  flex: 0 0 min(42vw, 360px);
+  min-width: 280px;
+  padding: 0 20px 22px 0;
+  scroll-snap-align: start;
+}
+
+.resume-details__track article + article {
   padding-left: 20px;
   border-left: 1px solid var(--line);
+}
+
+.resume-details__experience .resume-details__track article {
+  flex-basis: min(60vw, 480px);
 }
 
 .resume-details__project-head {
   display: grid;
   gap: 6px;
+}
+
+.resume-details__project-head h4 {
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .resume-details__awards {
@@ -1977,28 +2013,18 @@
 }
 
 @media (max-width: 1050px) {
-  .resume-details__projects {
-    display: flex;
-    overflow-x: auto;
-    scroll-padding-inline: 0;
-    scroll-snap-type: x mandatory;
-    overscroll-behavior-inline: contain;
-    scrollbar-width: thin;
-  }
-
-  .resume-details__projects article,
-  .resume-details__projects article + article {
+  .resume-details__track article,
+  .resume-details__experience .resume-details__track article {
     flex: 0 0 min(82vw, 340px);
     min-width: 250px;
-    padding: 20px 18px;
-    scroll-snap-align: start;
+    padding-right: 18px;
   }
 
-  .resume-details__projects article:first-child {
+  .resume-details__track article:first-child {
     padding-left: 0;
   }
 
-  .resume-details__projects article:last-child {
+  .resume-details__track article:last-child {
     padding-right: 0;
   }
 }
@@ -2170,7 +2196,7 @@
   .analysis-route {
     order: 4;
     width: 100%;
-    min-height: 96px;
+    min-height: 78px;
     align-self: stretch;
   }
 
@@ -2181,15 +2207,6 @@
   .analysis-route__step--one { top: 52px; }
   .analysis-route__step--two { left: 35%; top: 13px; }
   .analysis-route__step--three { top: 0; }
-
-  .analysis-route__status {
-    right: 0;
-    bottom: -2px;
-    width: min(100%, 220px);
-    max-width: none;
-    font-size: 8px;
-    text-align: right;
-  }
 
   .featured-media {
     order: 3;
