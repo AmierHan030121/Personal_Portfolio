@@ -7,7 +7,6 @@ import { DashboardsPage } from "../pages/DashboardsPage";
 import { ResearchPage } from "../pages/ResearchPage";
 import { AboutPage } from "../pages/AboutPage";
 import { ProjectDetailPage } from "../pages/ProjectDetailPage";
-import { MouseFx } from "../components/MouseFx";
 
 export default function App() {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -24,7 +23,6 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <MouseFx />
       <SiteHeader isMenuOpen={isMenuOpen} onMenuToggle={() => setMenuOpen((open) => !open)} onNavigate={() => setMenuOpen(false)} />
       <main id="main-content" tabIndex={-1}>
         <Routes>

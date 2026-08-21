@@ -17,7 +17,7 @@ export function HomePage() {
         <span className="coordinate-label coordinate-label--x">X / BUSINESS QUESTION</span>
         <span className="coordinate-label coordinate-label--y">Y / DECISION CLARITY</span>
         <div className="portrait-zone">
-          <figure className="portrait-orbit" data-cursor-hover>
+          <figure className="portrait-orbit">
             <svg className="portrait-orbit__ring" viewBox="0 0 240 240" aria-hidden="true">
               <defs>
                 <path id="portrait-ring-path" d="M 120,120 m -101,0 a 101,101 0 1,1 202,0 a 101,101 0 1,1 -202,0" />

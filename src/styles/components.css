@@ -231,61 +231,6 @@
   to { transform: translateX(-50%); }
 }
 
-.mouse-fx {
-  position: fixed;
-  top: -12px;
-  left: -12px;
-  z-index: 120;
-  width: 22px;
-  height: 22px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 180ms ease, width 160ms ease, height 160ms ease, margin 160ms ease, border-radius 160ms ease, background 160ms ease, box-shadow 160ms ease;
-  will-change: transform;
-}
-
-.mouse-fx::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 17px;
-  height: 20px;
-  background: var(--blue);
-  border: 2px solid var(--surface);
-  clip-path: polygon(0 0, 100% 42%, 50% 49%, 29% 100%);
-  filter: drop-shadow(1px 2px 0 rgba(23, 32, 42, 0.38));
-  transform: rotate(-12deg);
-  transition: opacity 120ms ease, transform 160ms ease;
-}
-
-.mouse-fx.is-visible {
-  opacity: 1;
-}
-
-.mouse-fx.is-hover {
-  width: 34px;
-  height: 34px;
-  margin: -6px 0 0 -6px;
-  border: 1px solid rgba(46, 107, 255, 0.72);
-  border-radius: 50%;
-  background: rgba(46, 107, 255, 0.16);
-  box-shadow: 0 0 0 5px rgba(46, 107, 255, 0.08);
-}
-
-.mouse-fx.is-hover::before {
-  top: 9px;
-  left: 9px;
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--surface);
-  border-radius: 50%;
-  background: var(--blue);
-  clip-path: none;
-  filter: none;
-  transform: none;
-}
-
 .home-intro h1 {
   margin: 0;
   font-family: var(--font-signature);
