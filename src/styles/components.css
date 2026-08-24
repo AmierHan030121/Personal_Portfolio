@@ -1863,6 +1863,16 @@
   margin-top: 8px;
 }
 
+.resume-details__tools {
+  overflow-wrap: anywhere;
+}
+
+.resume-details__tools strong,
+.resume-details li strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
 .resume-details__experience > div,
 .resume-details__projects > div {
   min-width: 0;

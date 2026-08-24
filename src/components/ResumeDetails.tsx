@@ -1,6 +1,18 @@
 import { BriefcaseBusiness, Code2, FolderKanban, GraduationCap, Trophy } from "lucide-react";
 import { profile } from "../content/profile";
 
+function renderResumePoint(point: string) {
+  const separatorIndex = point.indexOf("：");
+  if (separatorIndex <= 0 || separatorIndex > 24) return point;
+
+  return (
+    <>
+      <strong>{point.slice(0, separatorIndex + 1)}</strong>
+      {point.slice(separatorIndex + 1)}
+    </>
+  );
+}
+
 export function ResumeDetails() {
   return (
     <section className="resume-details" aria-labelledby="resume-details-title">
@@ -28,7 +40,8 @@ export function ResumeDetails() {
                   <h4>{experience.company} · {experience.role}</h4>
                   <span>{experience.period}</span>
                 </div>
-                <ul>{experience.highlights.map((item) => <li key={item}>{item}</li>)}</ul>
+                {experience.tools?.length ? <small className="resume-details__tools"><strong>技术栈：</strong>{experience.tools.join("、")}</small> : null}
+                <ul>{experience.highlights.map((item) => <li key={item}>{renderResumePoint(item)}</li>)}</ul>
               </article>
             ))}
           </div>
@@ -45,7 +58,8 @@ export function ResumeDetails() {
                   <h4>{project.title}</h4>
                   <span>{project.period}</span>
                 </div>
-                <ul>{project.points.map((point) => <li key={point}>{point}</li>)}</ul>
+                {project.tools?.length ? <small className="resume-details__tools"><strong>技术栈：</strong>{project.tools.join("、")}</small> : null}
+                <ul>{project.points.map((point) => <li key={point}>{renderResumePoint(point)}</li>)}</ul>
               </article>
             ))}
           </div>
